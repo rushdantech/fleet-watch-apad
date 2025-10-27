@@ -1,4 +1,4 @@
-import { LayoutDashboard, Users, FileText, Settings, Bus } from "lucide-react";
+import { LayoutDashboard, Users, FileText, Settings, Bus, Truck, UserCircle, AlertTriangle, Wrench, History } from "lucide-react";
 import { NavLink } from "react-router-dom";
 import {
   Sidebar,
@@ -14,7 +14,12 @@ import {
 
 const menuItems = [
   { title: "Dashboard", url: "/", icon: LayoutDashboard },
-  { title: "Vehicles", url: "/vehicles", icon: Bus },
+  { title: "Vehicle Monitoring", url: "/vehicles", icon: Bus },
+  { title: "Vehicle Inventory", url: "/vehicle-inventory", icon: Truck },
+  { title: "Drivers", url: "/drivers", icon: UserCircle },
+  { title: "JPJ Summons", url: "/jpj-summons", icon: AlertTriangle },
+  { title: "Maintenance", url: "/maintenance", icon: Wrench },
+  { title: "Service History", url: "/service-history", icon: History },
   { title: "Users", url: "/users", icon: Users },
   { title: "Reports", url: "/reports", icon: FileText },
   { title: "Settings", url: "/settings", icon: Settings },

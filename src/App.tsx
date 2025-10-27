@@ -8,6 +8,17 @@ import { AppSidebar } from "@/components/AppSidebar";
 import { DashboardHeader } from "@/components/DashboardHeader";
 import Index from "./pages/Index";
 import Vehicles from "./pages/Vehicles";
+import VehicleInventory from "./pages/VehicleInventory";
+import InsuranceRenewal from "./pages/InsuranceRenewal";
+import BulkInsuranceRenewal from "./pages/BulkInsuranceRenewal";
+import VehicleMapView from "./pages/VehicleMapView";
+import Maintenance from "./pages/Maintenance";
+import ServiceHistory from "./pages/ServiceHistory";
+import ServiceRecordDetail from "./pages/ServiceRecordDetail";
+import NewServiceRecord from "./pages/NewServiceRecord";
+import Drivers from "./pages/Drivers";
+import AddDriver from "./pages/AddDriver";
+import JPJSummons from "./pages/JPJSummons";
 import Users from "./pages/Users";
 import Reports from "./pages/Reports";
 import Settings from "./pages/Settings";
@@ -22,14 +33,25 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <SidebarProvider>
-          <div className="flex min-h-screen w-full">
+          <div className="flex min-h-screen w-full flex-col lg:flex-row">
             <AppSidebar />
             <div className="flex flex-1 flex-col">
               <DashboardHeader />
-              <main className="flex-1 p-6 bg-background">
+              <main className="flex-1 p-4 md:p-6 bg-background overflow-x-auto">
                 <Routes>
                   <Route path="/" element={<Index />} />
                   <Route path="/vehicles" element={<Vehicles />} />
+                  <Route path="/vehicle-inventory" element={<VehicleInventory />} />
+                  <Route path="/insurance-renewal/:vehicleId" element={<InsuranceRenewal />} />
+                  <Route path="/bulk-insurance-renewal" element={<BulkInsuranceRenewal />} />
+                  <Route path="/vehicle-map/:vehicleId" element={<VehicleMapView />} />
+                  <Route path="/maintenance" element={<Maintenance />} />
+                  <Route path="/service-history" element={<ServiceHistory />} />
+                  <Route path="/service-record/:id" element={<ServiceRecordDetail />} />
+                  <Route path="/service-record/new" element={<NewServiceRecord />} />
+                  <Route path="/drivers" element={<Drivers />} />
+                  <Route path="/drivers/new" element={<AddDriver />} />
+                  <Route path="/jpj-summons" element={<JPJSummons />} />
                   <Route path="/users" element={<Users />} />
                   <Route path="/reports" element={<Reports />} />
                   <Route path="/settings" element={<Settings />} />

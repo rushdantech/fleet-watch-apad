@@ -1,87 +1,136 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useState } from "react";
+import { DateRange } from "react-day-picker";
+import { startOfToday } from "date-fns";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Search, MapPin } from "lucide-react";
+import { Search, MapPin, ExternalLink } from "lucide-react";
 import { mockVehicles } from "@/data/mockVehicles";
 import { VehicleStatusBadge } from "@/components/VehicleStatusBadge";
+import { DateTimeRangePicker } from "@/components/DateTimeRangePicker";
 
 const Vehicles = () => {
+  const [searchTerm, setSearchTerm] = useState("");
+  const [dateRange, setDateRange] = useState<DateRange | undefined>({
+    from: startOfToday(),
+    to: startOfToday(),
+  });
+  const [startTime, setStartTime] = useState("00:00");
+  const [endTime, setEndTime] = useState("23:59");
+
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(e.target.value);
+  };
+
+    const handleViewOnMap = (vehicle: typeof mockVehicles[0]) => {
+      window.open(`/vehicle-map/${vehicle.id}`, '_blank');
+    };
+
+  const filteredVehicles = mockVehicles.filter((vehicle) =>
+    vehicle.plateNumber.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    vehicle.id.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    vehicle.driver.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
-    <div className="space-y-6">
-      <div>
-        <h1 className="text-3xl font-bold tracking-tight">Vehicle Monitoring</h1>
-        <p className="text-muted-foreground">Track and monitor all vehicles in real-time</p>
+    <div className="space-y-4">
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-2xl font-bold tracking-tight">Vehicle Monitoring</h1>
+          <p className="text-sm text-muted-foreground">Track and monitor all vehicles in real-time</p>
+        </div>
       </div>
 
-      <Card>
-        <CardHeader>
-          <div className="flex items-center gap-4">
+      <Card className="border-0 shadow-none">
+        <CardHeader className="p-0 pb-4 space-y-0">
+          <div className="flex flex-col gap-2 sm:flex-row sm:items-start">
             <div className="relative flex-1">
               <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
               <Input
                 placeholder="Search by vehicle ID, plate, or driver..."
                 className="pl-9"
+                value={searchTerm}
+                onChange={handleSearch}
               />
             </div>
-            <Button>
-              <MapPin className="mr-2 h-4 w-4" />
-              View on Map
-            </Button>
+            <DateTimeRangePicker
+              dateRange={dateRange}
+              onDateRangeChange={setDateRange}
+              startTime={startTime}
+              endTime={endTime}
+              onStartTimeChange={setStartTime}
+              onEndTimeChange={setEndTime}
+              className="min-w-[300px]"
+            />
           </div>
         </CardHeader>
       </Card>
 
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-        {mockVehicles.map((vehicle) => (
+      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        {filteredVehicles.map((vehicle) => (
           <Card key={vehicle.id} className="bg-gradient-card">
-            <CardHeader>
-              <div className="flex items-start justify-between">
-                <div>
-                  <CardTitle className="text-lg">{vehicle.plateNumber}</CardTitle>
-                  <p className="text-sm text-muted-foreground">{vehicle.id}</p>
+            <CardContent className="p-4">
+              <div className="flex items-start justify-between mb-3">
+                <div className="flex-1">
+                  <div className="font-medium">{vehicle.plateNumber}</div>
+                  <div className="text-xs text-muted-foreground">{vehicle.id}</div>
                 </div>
-                <VehicleStatusBadge status={vehicle.status} />
-              </div>
-            </CardHeader>
-            <CardContent className="space-y-3">
-              <div>
-                <p className="text-sm font-medium">Driver</p>
-                <p className="text-sm text-muted-foreground">{vehicle.driver}</p>
+                <div className="flex items-start gap-2">
+                  <VehicleStatusBadge status={vehicle.status} />
+                </div>
               </div>
               
-              <div className="grid grid-cols-2 gap-2">
-                <div>
-                  <p className="text-sm font-medium">Speed</p>
-                  <p className={`text-lg font-bold ${vehicle.speed > 80 ? 'text-status-alert' : ''}`}>
-                    {vehicle.speed} km/h
-                  </p>
+              <div className="space-y-2 text-sm">
+                <div className="flex justify-between items-baseline">
+                  <span className="text-muted-foreground">Driver</span>
+                  <span className="font-medium truncate ml-2 text-right">{vehicle.driver}</span>
                 </div>
-                <div>
-                  <p className="text-sm font-medium">Total Alerts</p>
-                  <p className="text-lg font-bold">
-                    {vehicle.overspeedCount + vehicle.harshBrakeCount + vehicle.harshAccelCount}
-                  </p>
-                </div>
-              </div>
 
-              <div>
-                <p className="text-sm font-medium">Location</p>
-                <p className="text-sm text-muted-foreground truncate">{vehicle.location.address}</p>
-              </div>
+                <div className="grid grid-cols-2 gap-2">
+                  <div>
+                    <div className="text-xs text-muted-foreground">Speed</div>
+                    <div className={`font-bold ${vehicle.speed > 80 ? 'text-status-alert' : ''}`}>
+                      {vehicle.speed} km/h
+                    </div>
+                  </div>
+                  <div>
+                    <div className="text-xs text-muted-foreground">Total Alerts</div>
+                    <div className="font-bold">
+                      {vehicle.overspeedCount + vehicle.harshBrakeCount + vehicle.harshAccelCount}
+                    </div>
+                  </div>
+                </div>
 
-              <div className="grid grid-cols-3 gap-2 pt-2 border-t">
-                <div className="text-center">
-                  <p className="text-xs text-muted-foreground">Overspeed</p>
-                  <p className="text-sm font-semibold">{vehicle.overspeedCount}</p>
+                <div>
+                  <div className="text-xs text-muted-foreground">Location</div>
+                  <div className="truncate">{vehicle.location.address}</div>
                 </div>
-                <div className="text-center">
-                  <p className="text-xs text-muted-foreground">Hard Brake</p>
-                  <p className="text-sm font-semibold">{vehicle.harshBrakeCount}</p>
+
+                <div className="grid grid-cols-3 gap-1 pt-2 border-t text-center text-xs">
+                  <div>
+                    <div className="text-muted-foreground">Overspeed</div>
+                    <div className="font-semibold">{vehicle.overspeedCount}</div>
+                  </div>
+                  <div>
+                    <div className="text-muted-foreground">Hard Brake</div>
+                    <div className="font-semibold">{vehicle.harshBrakeCount}</div>
+                  </div>
+                  <div>
+                    <div className="text-muted-foreground">Hard Accel</div>
+                    <div className="font-semibold">{vehicle.harshAccelCount}</div>
+                  </div>
                 </div>
-                <div className="text-center">
-                  <p className="text-xs text-muted-foreground">Hard Accel</p>
-                  <p className="text-sm font-semibold">{vehicle.harshAccelCount}</p>
-                </div>
+
+                <Button
+                  variant="secondary"
+                  size="sm"
+                  className="w-full mt-3 bg-blue-50 hover:bg-blue-100 text-blue-600 border border-blue-200"
+                  onClick={() => handleViewOnMap(vehicle)}
+                >
+                  <MapPin className="h-4 w-4 mr-2" />
+                  View in Map
+                  <ExternalLink className="h-3 w-3 ml-1" />
+                </Button>
               </div>
             </CardContent>
           </Card>

@@ -1,19 +1,14 @@
+import { useState } from "react";
 import { Bus, AlertTriangle, Activity, Gauge } from "lucide-react";
 import { KPICard } from "@/components/KPICard";
 import { mockVehicles, mockKPIData } from "@/data/mockVehicles";
-import { VehicleStatusBadge } from "@/components/VehicleStatusBadge";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { VehicleList } from "@/components/VehicleList";
+import { VehicleMap } from "@/components/VehicleMap";
+import type { Vehicle } from "@/types/vehicle";
 
 const Index = () => {
+  const [selectedVehicle, setSelectedVehicle] = useState<Vehicle | null>(null);
+
   return (
     <div className="space-y-6">
       <div>
@@ -46,53 +41,23 @@ const Index = () => {
         />
       </div>
 
-      <div className="grid gap-4 lg:grid-cols-2">
-        <Card className="lg:col-span-2">
-          <CardHeader className="flex flex-row items-center justify-between">
-            <CardTitle>Live Vehicle Status</CardTitle>
-            <Button variant="outline" size="sm">View Map</Button>
-          </CardHeader>
-          <CardContent>
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Vehicle ID</TableHead>
-                  <TableHead>Plate</TableHead>
-                  <TableHead>Driver</TableHead>
-                  <TableHead>Status</TableHead>
-                  <TableHead>Speed</TableHead>
-                  <TableHead>Location</TableHead>
-                  <TableHead className="text-right">Alerts</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {mockVehicles.map((vehicle) => (
-                  <TableRow key={vehicle.id}>
-                    <TableCell className="font-medium">{vehicle.id}</TableCell>
-                    <TableCell>{vehicle.plateNumber}</TableCell>
-                    <TableCell>{vehicle.driver}</TableCell>
-                    <TableCell>
-                      <VehicleStatusBadge status={vehicle.status} />
-                    </TableCell>
-                    <TableCell>
-                      <span className={vehicle.speed > 80 ? "text-status-alert font-semibold" : ""}>
-                        {vehicle.speed} km/h
-                      </span>
-                    </TableCell>
-                    <TableCell className="max-w-[200px] truncate">
-                      {vehicle.location.address}
-                    </TableCell>
-                    <TableCell className="text-right">
-                      <span className={vehicle.overspeedCount > 0 ? "text-status-alert font-semibold" : ""}>
-                        {vehicle.overspeedCount + vehicle.harshBrakeCount + vehicle.harshAccelCount}
-                      </span>
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </CardContent>
-        </Card>
+      <div className="grid gap-6 lg:grid-cols-12">
+        {/* Vehicle List - Left Side */}
+        <div className="lg:col-span-4">
+          <VehicleList
+            vehicles={mockVehicles}
+            selectedVehicle={selectedVehicle}
+            onVehicleSelect={setSelectedVehicle}
+          />
+        </div>
+
+        {/* Map - Right Side */}
+        <div className="lg:col-span-8">
+          <VehicleMap
+            vehicles={mockVehicles}
+            onVehicleSelect={setSelectedVehicle}
+          />
+        </div>
       </div>
     </div>
   );
