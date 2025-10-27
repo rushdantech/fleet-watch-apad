@@ -252,7 +252,7 @@ export default function Drivers() {
                           <Button
                             variant="outline"
                             size="sm"
-                            onClick={() => handleViewSummons(driver.id)}
+                            onClick={() => navigate(`/driver-summons/${driver.id}`)}
                             className="whitespace-nowrap"
                           >
                             Check Summons

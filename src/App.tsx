@@ -12,6 +12,7 @@ import VehicleMapView from "./pages/VehicleMapView";
 import Maintenance from "./pages/Maintenance";
 import ServiceHistory from "./pages/ServiceHistory";
 import ServiceRecordDetail from "./pages/ServiceRecordDetail";
+import DriverSummons from "./pages/DriverSummons";
 import NewServiceRecord from "./pages/NewServiceRecord";
 import Drivers from "./pages/Drivers";
 import AddDriver from "./pages/AddDriver";
@@ -46,6 +47,7 @@ function App() {
                   <Route path="/service-record/new" element={<NewServiceRecord />} />
                   <Route path="/drivers" element={<Drivers />} />
                   <Route path="/drivers/new" element={<AddDriver />} />
+                  <Route path="/driver-summons/:driverId" element={<DriverSummons />} />
                   <Route path="/jpj-summons" element={<JPJSummons />} />
                   <Route path="/users" element={<Users />} />
                   <Route path="/reports" element={<Reports />} />
