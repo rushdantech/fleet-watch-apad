@@ -316,7 +316,7 @@ const Maintenance = () => {
           <Button
             variant="outline"
             size="sm"
-            onClick={() => navigate(`/service-history?vehicleId=${vehicle.vehicleId}`)}
+            onClick={() => navigate(`#/service-history?vehicleId=${vehicle.vehicleId}`)}
           >
             <History className="h-4 w-4 mr-2" />
             Service History

@@ -1,9 +1,6 @@
-import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { SidebarProvider } from "@/components/ui/sidebar";
+import { HashRouter, Routes, Route } from "react-router-dom";
+import { TooltipProvider } from "@/components/ui/tooltip";
 import { AppSidebar } from "@/components/AppSidebar";
 import { DashboardHeader } from "@/components/DashboardHeader";
 import Index from "./pages/Index";
@@ -26,18 +23,16 @@ import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
 
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <SidebarProvider>
-          <div className="flex min-h-screen w-full flex-col lg:flex-row">
+function App() {
+  return (
+    <QueryClientProvider client={queryClient}>
+      <TooltipProvider>
+        <HashRouter>
+          <div className="flex min-h-screen w-full">
             <AppSidebar />
-            <div className="flex flex-1 flex-col">
+            <div className="flex-1">
               <DashboardHeader />
-              <main className="flex-1 p-4 md:p-6 bg-background overflow-x-auto">
+              <main className="p-4 md:p-6">
                 <Routes>
                   <Route path="/" element={<Index />} />
                   <Route path="/vehicles" element={<Vehicles />} />
@@ -60,10 +55,10 @@ const App = () => (
               </main>
             </div>
           </div>
-        </SidebarProvider>
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
-);
+        </HashRouter>
+      </TooltipProvider>
+    </QueryClientProvider>
+  );
+}
 
 export default App;
