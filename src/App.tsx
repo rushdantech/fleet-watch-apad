@@ -23,6 +23,7 @@ import Reports from "./pages/Reports";
 import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
 import CDLRenewal from "./pages/CDLRenewal";
+import SummonsPayment from "./pages/SummonsPayment";
 
 const queryClient = new QueryClient();
 
@@ -56,6 +57,7 @@ function App() {
                     <Route path="/reports" element={<Reports />} />
                     <Route path="/settings" element={<Settings />} />
                     <Route path="/drivers/:driverId/cdl-renewal" element={<CDLRenewal />} />
+                    <Route path="/summons/:summonsId/payment" element={<SummonsPayment />} />
                     <Route path="*" element={<NotFound />} />
                   </Routes>
                 </main>

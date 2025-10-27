@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Search, AlertTriangle } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { Search, AlertTriangle, CreditCard } from "lucide-react";
 import { mockSummons } from "@/data/mockSummons";
 import { mockDrivers } from "@/data/mockDrivers";
 import type { Summons } from "@/types/summons";
@@ -30,6 +31,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 
 export default function JPJSummons() {
+  const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState<"all" | "blacklisted" | "regular">("all");
   const [paymentFilter, setPaymentFilter] = useState<"all" | "pending" | "overdue" | "paid">("all");
@@ -223,7 +225,9 @@ export default function JPJSummons() {
                           variant="outline"
                           size="sm"
                           className="whitespace-nowrap"
+                          onClick={() => navigate(`/summons/${summons.id}/payment`)}
                         >
+                          <CreditCard className="mr-2 h-4 w-4" />
                           Pay Now
                         </Button>
                       )}
