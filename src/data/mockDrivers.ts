@@ -11,7 +11,7 @@ export const mockDrivers: Driver[] = [
     status: "active",
     license: {
       number: "D1234567",
-      class: "D",
+      class: ["D"],
       issueDate: "2020-01-01",
       expiryDate: "2025-01-01",
       psv: {
@@ -29,7 +29,7 @@ export const mockDrivers: Driver[] = [
     status: "active",
     license: {
       number: "D7654321",
-      class: "D",
+      class: ["D"],
       issueDate: "2019-06-15",
       expiryDate: "2024-06-15",
     },
@@ -43,7 +43,7 @@ export const mockDrivers: Driver[] = [
     status: "on_leave",
     license: {
       number: "D9876543",
-      class: "D",
+      class: ["D"],
       issueDate: "2021-03-10",
       expiryDate: "2026-03-10",
       psv: {
@@ -70,7 +70,7 @@ export const mockDrivers: Driver[] = [
     status: "active",
     license: {
       number: "D5555555",
-      class: "D",
+      class: ["D"],
       issueDate: "2022-05-20",
       expiryDate: format(addDays(new Date(), 15), 'yyyy-MM-dd'), // License expiring soon
     },
@@ -84,7 +84,7 @@ export const mockDrivers: Driver[] = [
     status: "suspended",
     license: {
       number: "D4444444",
-      class: "D",
+      class: ["D"],
       issueDate: "2018-12-01",
       expiryDate: format(subDays(new Date(), 30), 'yyyy-MM-dd'), // Expired license
       psv: {
@@ -102,7 +102,7 @@ export const mockDrivers: Driver[] = [
     status: "active",
     license: {
       number: "D3333333",
-      class: "D",
+      class: ["D"],
       issueDate: "2023-01-15",
       expiryDate: "2028-01-15",
       psv: {
@@ -125,7 +125,7 @@ export const mockDrivers: Driver[] = [
     status: "active",
     license: {
       number: "D2222222",
-      class: "D",
+      class: ["D"],
       issueDate: "2020-08-30",
       expiryDate: "2025-08-30",
     },
@@ -138,7 +138,7 @@ export const mockDrivers: Driver[] = [
     status: "inactive",
     license: {
       number: "D1111111",
-      class: "D",
+      class: ["D"],
       issueDate: "2019-11-20",
       expiryDate: "2024-11-20",
     },
@@ -152,7 +152,7 @@ export const mockDrivers: Driver[] = [
     status: "active",
     license: {
       number: "D8888888",
-      class: "D",
+      class: ["D"],
       issueDate: "2021-07-05",
       expiryDate: "2026-07-05",
       psv: {
@@ -179,7 +179,7 @@ export const mockDrivers: Driver[] = [
     status: "active",
     license: {
       number: "D7777777",
-      class: "D",
+      class: ["D"],
       issueDate: "2022-03-15",
       expiryDate: "2027-03-15",
     },
