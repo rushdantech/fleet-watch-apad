@@ -57,6 +57,22 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+        status: {
+          moving: "hsl(var(--status-moving))",
+          idle: "hsl(var(--status-idle))",
+          stopped: "hsl(var(--status-stopped))",
+          offline: "hsl(var(--status-offline))",
+          alert: "hsl(var(--status-alert))",
+        },
+      },
+      backgroundImage: {
+        'gradient-primary': 'var(--gradient-primary)',
+        'gradient-card': 'var(--gradient-card)',
+      },
+      boxShadow: {
+        'sm': 'var(--shadow-sm)',
+        'md': 'var(--shadow-md)',
+        'lg': 'var(--shadow-lg)',
       },
       borderRadius: {
         lg: "var(--radius)",
