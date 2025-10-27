@@ -74,17 +74,17 @@ export default function SummonsPayment() {
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <Label>Summons Number</Label>
-                  <p className="text-sm text-muted-foreground">{summons.number}</p>
+                  <p className="text-sm text-muted-foreground">{summons.id}</p>
                 </div>
                 <div>
                   <Label>Issue Date</Label>
                   <p className="text-sm text-muted-foreground">
-                    {format(new Date(summons.issueDate), "dd MMM yyyy")}
+                    {format(new Date(summons.offenseDateTime), "dd MMM yyyy")}
                   </p>
                 </div>
                 <div className="col-span-2">
                   <Label>Offense</Label>
-                  <p className="text-sm text-muted-foreground">{summons.offense}</p>
+                  <p className="text-sm text-muted-foreground">Speeding - {summons.actualSpeed}km/h in {summons.speedLimit}km/h zone</p>
                 </div>
                 <div>
                   <Label>Location</Label>
@@ -92,7 +92,7 @@ export default function SummonsPayment() {
                 </div>
                 <div>
                   <Label>Vehicle Plate</Label>
-                  <p className="text-sm text-muted-foreground">{summons.vehiclePlate}</p>
+                  <p className="text-sm text-muted-foreground">{summons.vehicleNumber}</p>
                 </div>
               </div>
             </div>
