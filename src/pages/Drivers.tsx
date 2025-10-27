@@ -80,8 +80,7 @@ export default function Drivers() {
   };
 
   const handleLicenseRenewal = (driverId: string) => {
-    console.log("Renew license for driver:", driverId);
-    // TODO: Implement license renewal
+    navigate(`/drivers/${driverId}/cdl-renewal`);
   };
 
   const handleViewDocuments = (driver: Driver) => {
