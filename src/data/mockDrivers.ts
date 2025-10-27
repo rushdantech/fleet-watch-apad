@@ -1,135 +1,187 @@
 import { Driver } from "@/types/driver";
-
-// Helper function to generate dates
-const getDate = (daysFromNow: number) => {
-  const date = new Date();
-  date.setDate(date.getDate() + daysFromNow);
-  return date.toISOString();
-};
+import { addDays, subDays } from "date-fns";
 
 export const mockDrivers: Driver[] = [
   {
-    id: "D001",
-    name: "Ahmad bin Abdullah",
+    id: "DRV001",
+    name: "Ahmad Bin Abdullah",
     nricNumber: "800101-14-5567",
-    phoneNumber: "012-3456789",
-    email: "ahmad@example.com",
-    address: "123, Jalan Ampang, 50450 Kuala Lumpur",
+    phoneNumber: "012-345-6789",
+    email: "ahmad.abdullah@example.com",
     status: "active",
     license: {
-      number: "KL80101145567",
-      class: ["E", "PSV"],
-      issueDate: getDate(-730), // 2 years ago
-      expiryDate: getDate(180), // 6 months ahead
+      number: "D1234567",
+      class: "D",
+      issueDate: "2020-01-01",
+      expiryDate: "2025-01-01",
       psv: {
-        number: "PSV12345",
-        expiryDate: getDate(150),
-      }
-    },
-    emergencyContact: {
-      name: "Aminah binti Abdullah",
-      relationship: "Spouse",
-      phoneNumber: "012-9876543"
-    },
-    assignedVehicle: "V001",
-    joiningDate: getDate(-365),
-    documents: {
-      nricFront: "nric_front_d001.jpg",
-      nricBack: "nric_back_d001.jpg",
-      photo: "photo_d001.jpg",
-      medicalCertificate: {
-        documentUrl: "medical_d001.pdf",
-        expiryDate: getDate(240),
+        number: "PSV123456",
+        issueDate: "2020-01-01",
+        expiryDate: "2025-01-01",
       },
-      trainingCertificates: [
-        {
-          name: "Defensive Driving",
-          issueDate: getDate(-180),
-          expiryDate: getDate(180),
-          documentUrl: "cert_defensive_d001.pdf"
-        }
-      ]
     },
-    createdBy: "U001",
-    createdAt: getDate(-365),
   },
   {
-    id: "D002",
-    name: "Tan Wei Ming",
-    nricNumber: "850215-10-5577",
-    phoneNumber: "012-2223333",
-    email: "tanwm@example.com",
-    address: "45, Jalan Pasar, 11600 Penang",
+    id: "DRV002",
+    name: "Siti Aminah",
+    nricNumber: "850215-08-6642",
+    phoneNumber: "013-456-7890",
     status: "active",
     license: {
-      number: "P85021510557",
-      class: ["E"],
-      issueDate: getDate(-365),
-      expiryDate: getDate(30), // Expiring soon
+      number: "D7654321",
+      class: "D",
+      issueDate: "2019-06-15",
+      expiryDate: "2024-06-15",
     },
-    emergencyContact: {
-      name: "Tan Mei Ling",
-      relationship: "Sister",
-      phoneNumber: "012-4445555"
-    },
-    assignedVehicle: "V002",
-    joiningDate: getDate(-180),
-    documents: {
-      nricFront: "nric_front_d002.jpg",
-      nricBack: "nric_back_d002.jpg",
-      photo: "photo_d002.jpg",
-      medicalCertificate: {
-        documentUrl: "medical_d002.pdf",
-        expiryDate: getDate(45),
-      }
-    },
-    createdBy: "U001",
-    createdAt: getDate(-180),
   },
   {
-    id: "D003",
-    name: "Kumar Selvam",
+    id: "DRV003",
+    name: "Raj Kumar",
     nricNumber: "780522-14-5511",
-    phoneNumber: "012-6667777",
-    address: "78, Jalan Merdeka, 80000 Johor Bahru",
+    phoneNumber: "014-567-8901",
+    email: "raj.kumar@example.com",
     status: "on_leave",
     license: {
-      number: "J78052214551",
-      class: ["E", "GDL"],
-      issueDate: getDate(-545),
-      expiryDate: getDate(90),
+      number: "D9876543",
+      class: "D",
+      issueDate: "2021-03-10",
+      expiryDate: "2026-03-10",
       psv: {
-        number: "PSV67890",
-        expiryDate: getDate(-15), // Expired
-      }
-    },
-    emergencyContact: {
-      name: "Lakshmi",
-      relationship: "Mother",
-      phoneNumber: "012-8889999"
-    },
-    assignedVehicle: "V003",
-    joiningDate: getDate(-730),
-    documents: {
-      nricFront: "nric_front_d003.jpg",
-      nricBack: "nric_back_d003.jpg",
-      photo: "photo_d003.jpg",
-      medicalCertificate: {
-        documentUrl: "medical_d003.pdf",
-        expiryDate: getDate(120),
+        number: "PSV987654",
+        issueDate: "2021-03-10",
+        expiryDate: "2026-03-10",
       },
-      trainingCertificates: [
-        {
-          name: "Hazmat Transportation",
-          issueDate: getDate(-90),
-          expiryDate: getDate(275),
-          documentUrl: "cert_hazmat_d003.pdf"
-        }
-      ]
     },
-    createdBy: "U001",
-    createdAt: getDate(-730),
-    modifiedBy: "U001",
-    modifiedAt: getDate(-1),
-  }
+    documents: {
+      nricFront: "/sample-nric-front.jpg",
+      nricBack: "/sample-nric-back.jpg",
+      medicalCertificate: {
+        documentUrl: "/sample-medical-cert.pdf",
+        issueDate: "2023-01-01",
+        expiryDate: "2024-01-01",
+      },
+    },
+  },
+  {
+    id: "DRV004",
+    name: "Tan Wei Ming",
+    nricNumber: "900330-08-5577",
+    phoneNumber: "016-789-0123",
+    status: "active",
+    license: {
+      number: "D5555555",
+      class: "D",
+      issueDate: "2022-05-20",
+      expiryDate: format(addDays(new Date(), 15), 'yyyy-MM-dd'), // License expiring soon
+    },
+  },
+  {
+    id: "DRV005",
+    name: "Muhammad Hafiz",
+    nricNumber: "880712-14-6633",
+    phoneNumber: "017-890-1234",
+    email: "hafiz.m@example.com",
+    status: "suspended",
+    license: {
+      number: "D4444444",
+      class: "D",
+      issueDate: "2018-12-01",
+      expiryDate: format(subDays(new Date(), 30), 'yyyy-MM-dd'), // Expired license
+      psv: {
+        number: "PSV444444",
+        issueDate: "2018-12-01",
+        expiryDate: format(subDays(new Date(), 30), 'yyyy-MM-dd'), // Expired PSV
+      },
+    },
+  },
+  {
+    id: "DRV006",
+    name: "Lee Mei Ling",
+    nricNumber: "920825-08-5544",
+    phoneNumber: "018-901-2345",
+    status: "active",
+    license: {
+      number: "D3333333",
+      class: "D",
+      issueDate: "2023-01-15",
+      expiryDate: "2028-01-15",
+      psv: {
+        number: "PSV333333",
+        issueDate: "2023-01-15",
+        expiryDate: "2028-01-15",
+      },
+    },
+    documents: {
+      nricFront: "/sample-nric-front.jpg",
+      nricBack: "/sample-nric-back.jpg",
+    },
+  },
+  {
+    id: "DRV007",
+    name: "Kumar Raju",
+    nricNumber: "870603-14-7788",
+    phoneNumber: "019-012-3456",
+    email: "kumar.raju@example.com",
+    status: "active",
+    license: {
+      number: "D2222222",
+      class: "D",
+      issueDate: "2020-08-30",
+      expiryDate: "2025-08-30",
+    },
+  },
+  {
+    id: "DRV008",
+    name: "Wong Ah Kau",
+    nricNumber: "830417-08-5522",
+    phoneNumber: "012-345-6780",
+    status: "inactive",
+    license: {
+      number: "D1111111",
+      class: "D",
+      issueDate: "2019-11-20",
+      expiryDate: "2024-11-20",
+    },
+  },
+  {
+    id: "DRV009",
+    name: "Amir Hassan",
+    nricNumber: "910702-14-5533",
+    phoneNumber: "013-456-7891",
+    email: "amir.h@example.com",
+    status: "active",
+    license: {
+      number: "D8888888",
+      class: "D",
+      issueDate: "2021-07-05",
+      expiryDate: "2026-07-05",
+      psv: {
+        number: "PSV888888",
+        issueDate: "2021-07-05",
+        expiryDate: "2026-07-05",
+      },
+    },
+    documents: {
+      nricFront: "/sample-nric-front.jpg",
+      nricBack: "/sample-nric-back.jpg",
+      medicalCertificate: {
+        documentUrl: "/sample-medical-cert.pdf",
+        issueDate: "2023-06-01",
+        expiryDate: "2024-06-01",
+      },
+    },
+  },
+  {
+    id: "DRV010",
+    name: "Sarah Abdullah",
+    nricNumber: "890514-08-6644",
+    phoneNumber: "014-567-8902",
+    status: "active",
+    license: {
+      number: "D7777777",
+      class: "D",
+      issueDate: "2022-03-15",
+      expiryDate: "2027-03-15",
+    },
+  },
 ];
