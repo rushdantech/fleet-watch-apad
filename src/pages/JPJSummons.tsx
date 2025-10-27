@@ -34,11 +34,9 @@ export default function JPJSummons() {
   const [statusFilter, setStatusFilter] = useState<"all" | "blacklisted" | "regular">("all");
   const [paymentFilter, setPaymentFilter] = useState<"all" | "pending" | "overdue" | "paid">("all");
 
-  // Get driver name by ID
   const filteredSummons = mockSummons.filter((summons) => {
     const matchesSearch = 
-      summons.referenceNumber.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      summons.vehiclePlateNumber.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      summons.vehicleNumber.toLowerCase().includes(searchTerm.toLowerCase()) ||
       summons.location.toLowerCase().includes(searchTerm.toLowerCase());
 
     const matchesStatus = 
@@ -142,7 +140,7 @@ export default function JPJSummons() {
               <div className="relative flex-1">
                 <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
                 <Input
-                  placeholder="Search summons..."
+                  placeholder="Search by vehicle number or location..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   className="pl-8"
@@ -185,7 +183,6 @@ export default function JPJSummons() {
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead>Reference</TableHead>
                   <TableHead>Vehicle</TableHead>
                   <TableHead>Date & Time</TableHead>
                   <TableHead>Location</TableHead>
@@ -199,12 +196,11 @@ export default function JPJSummons() {
                 {filteredSummons.map((summons) => (
                   <TableRow key={summons.id}>
                     <TableCell className="font-medium">
-                      {summons.referenceNumber}
+                      {summons.vehicleNumber}
                       {summons.isBlacklisted && (
                         <Badge variant="destructive" className="ml-2">Blacklisted</Badge>
                       )}
                     </TableCell>
-                    <TableCell>{summons.vehiclePlateNumber}</TableCell>
                     <TableCell>
                       {new Date(summons.offenseDateTime).toLocaleString()}
                     </TableCell>
