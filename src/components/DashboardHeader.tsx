@@ -1,6 +1,8 @@
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { Bell, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useNavigate } from "react-router-dom";
+import { getCurrentUser, logout } from "@/lib/auth";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -11,6 +13,14 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 export function DashboardHeader() {
+  const navigate = useNavigate();
+  const currentUser = getCurrentUser();
+
+  const handleLogout = () => {
+    logout();
+    navigate("/login", { replace: true });
+  };
+
   return (
     <header className="sticky top-0 z-40 flex h-16 items-center gap-4 border-b bg-card px-6 shadow-sm">
       <SidebarTrigger />
@@ -30,11 +40,12 @@ export function DashboardHeader() {
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end" className="w-56">
           <DropdownMenuLabel>My Account</DropdownMenuLabel>
+          <DropdownMenuItem disabled>{currentUser?.name ?? "Guest"}</DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem>Profile</DropdownMenuItem>
           <DropdownMenuItem>Settings</DropdownMenuItem>
           <DropdownMenuSeparator />
-          <DropdownMenuItem>Log out</DropdownMenuItem>
+          <DropdownMenuItem onClick={handleLogout}>Log out</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
     </header>
